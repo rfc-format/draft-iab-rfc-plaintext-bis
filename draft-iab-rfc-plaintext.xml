@@ -1,0 +1,375 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!DOCTYPE rfc SYSTEM "rfc2629.dtd" [
+<!ENTITY RFC3629 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.3629.xml">
+<!ENTITY RFC5741 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.5741.xml">
+<!ENTITY RFC6949 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.6949.xml">
+<!ENTITY RFC7322 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.7322.xml">
+<!ENTITY I-D.iab-rfc-nonascii SYSTEM "http://xml.resource.org/public/rfc/bibxml3/reference.I-D.iab-rfc-nonascii.xml">
+<!ENTITY I-D.iab-xml2rfc SYSTEM "http://xml.resource.org/public/rfc/bibxml3/reference.I-D.iab-xml2rfc.xml">
+<!ENTITY RFC7749 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.7749.xml">
+]>
+<?xml-stylesheet type='text/xsl' href='rfc2629.xslt' ?>
+<?rfc strict="yes" ?>
+<?rfc toc="yes"?>
+<?rfc tocdepth="4"?>
+<?rfc symrefs="yes"?>
+<?rfc sortrefs="yes" ?>
+<?rfc compact="yes" ?>
+<?rfc subcompact="no" ?>
+<rfc category="info" docName="draft-iab-rfc-plaintext-03" ipr="trust200902">
+
+<!-- ***** FRONT MATTER ***** -->
+
+<front>
+<!-- The abbreviated title is used in the page header - it is only necessary if the full title is longer than 39 characters -->
+
+  <title abbrev="Plain-Text RFCs">Requirements for Plain-Text RFCs</title>
+  <author fullname="Heather Flanagan" initials="H." surname="Flanagan">
+    <organization>RFC Editor</organization>
+
+    <address>
+      <phone></phone>
+      <email>rse@rfc-editor.org</email>
+      <uri>http://orcid.org/0000-0002-2647-2220</uri>
+    </address>
+  </author>
+
+  <date day="16" month="May" year="2016" />
+
+  <area>General</area>
+  <workgroup>Internet Architecture Board</workgroup>
+
+  <keyword>RFC</keyword>
+  <keyword>ASCII</keyword>
+  <keyword>format</keyword>
+  <keyword>plain-text</keyword>
+  <keyword>plain text</keyword>
+
+  <abstract>
+      <t>In 2013, after a great deal of community discussion, the decision 
+      was made to shift from the plain-text, ASCII-only canonical format for
+      RFCs to XML as the canonical format with more human-readable formats 
+      rendered from that XML.  The high-level requirements that
+      informed this change were defined in RFC6949, "RFC Series Format 
+      Requirements and Future Development."  Plain text remains an important
+      format for many in the IETF community, and will be one of the 
+      publication formats rendered from the XML.  This draft documents 
+      the rendering requirements for the plain-text RFC publication format.  
+      These requirements do not apply to plain-text RFCs published before
+      the format transition.</t>
+  </abstract>
+  <note title="Editorial Note (To be removed by the RFC Editor)">
+    <t>Discussion of this draft takes place on the rfc-interest mailing list
+      (rfc-interest@rfc-editor.org), which has its home page at
+      https://www.rfc-editor.org/mailman/listinfo/rfc-interest.
+    </t>
+  </note>
+</front>
+
+  <middle>
+    <section title="Introduction">
+      <t>In 2013, after a great deal of community discussion, the decision 
+      was made to shift from the plain-text, ASCII-only canonical format for
+      RFCs to XML as the canonical format <xref target="XML-ANNOUNCE"/>.  
+      The high-level requirements that informed this change were defined in 
+      <xref target="RFC6949"/>, "RFC Series Format Requirements and Future 
+      Development."  Plain text remains an important format for many in the 
+      IETF community, and will be one of the publication formats 
+      rendered from the XML. This draft documents the rendering requirements 
+      for the plain-text RFC publication format. These requirements do not 
+      apply to plain-text RFCs published before the format transition.</t>
+
+      <t>The Unicode Consortium defines 'plain text' as 
+      <xref target="UNICODE-GLOSSARY">"Computer-encoded text that consists 
+      only of a sequence of code points from a given standard, with no 
+      other formatting or structural information.  Plain text interchange is 
+      commonly used between computer systems that do not share higher-level 
+      protocols." </xref>  In other words, plain-text files cannot include 
+      embedded character formatting or style information.  The actual character 
+      encoding, however, is not limited to any particular sequence of code
+      points.</t>
+
+      <t>A plain-text output for RFCs will continue to be required
+      for the foreseeable future. The process of converting XML2RFC version 2
+      (xml2rfc v2) into text documents is well understood 
+      <xref target="RFC7749"/>. We plan to rely on the practice 
+      to date to inform the requirements for converting XML2RFC version 3
+      (xml2rfc v3) to text <xref target="I-D.iab-xml2rfc"/>. This document 
+      calls out those requirements that are changed from v2 or otherwise 
+      deserve special attention, such as the requirements around character 
+      encoding may be used, changes in the page layout, changes in handling
+      figures, artwork, and pagination.  For more details on general style, 
+      see <xref target="RFC7322">"The RFC Style Guide."</xref></t>
+
+      <t>The following assumptions drive the changes in the plain-text
+      output for RFCs:</t>
+          <t>
+            <list style="symbols">
+              <t>The existing tools used by the RFC Editor and many members
+              of the author community to create the text file are complicated
+              to change and support; manual manipulation is often required 
+              for the final output.  In particular, handling page breaks and 
+              associated widows and orphans for paginated output is tricky
+              <xref target="WIDOWS"/>.</t>
+              <t>Additional publication formats--for example: PDF, HTML--will
+              be available that will offer features such as markup, 
+              pretty printing, etc. </t> 
+              <t>There is an extensive tool chain in existence among the 
+              community to work with plain-text documents.  Similar 
+              functionality may be possible with other publication formats, 
+              but the workflow that uses the existing tool chain should be 
+              supported as much as is considered practical.</t>
+            </list>
+          </t>
+      <t>Where practical, the original guidance for the structure of a 
+      plain-text RFC has been kept, such as with line lengths, lines per 
+      page, etc. <xref target="INS2AUTH"/>  Other publication formats, 
+      such as HTML and PDF, will include additional features that will not
+      be present in the plain text (e.g., paragraph numbering, typographical
+      emphasis).</t>
+
+<t>The details described in this document are expected to change based on experience gained in implementing the RFC production center's toolset. Revised documents will be published capturing those changes as the toolset is completed. Other implementers must not expect those changes to remain backwards-compatible with the details described this document.</t>
+
+
+    </section>
+
+    <section title="Character Encoding">
+      <t>Plain-text files for RFCs will use the 
+      <xref target="RFC3629">UTF-8</xref> character encoding.  That said, 
+      the use of non-ASCII characters will be only allowed in a limited and
+      controlled fashion.</t>
+
+      <t>Many elements within the xml2rfc v3 vocabulary have an attribute for 
+      the ASCII equivalent to a non-ASCII character string. The ASCII 
+      equivalent will be rendered within the plain-text as per the guidance in
+      <xref target="I-D.iab-rfc-nonascii">"The Use of Non-ASCII
+      Characters in RFCs"</xref>.  Please view the PDF version of that draft.
+      </t>
+
+      <t>The plain-text file will include a byte order mark (BOM) to provide 
+      text reader software with in-band information about the character 
+      encoding scheme used. </t>
+    </section>
+
+    <section title="Figures and Artwork">
+      <t>Artwork, such as network diagrams or performance graphs, must be 
+      tagged by the XML &lt;artwork&gt; element (see Section 2.5 
+      of <xref target="I-D.iab-xml2rfc">"The 'XML2RFC' version 3 Vocabulary"
+      </xref>. Where this artwork is comprised of an ASCII art diagram, it
+      must be tagged as 'type=ascii-art'. The plain-text format will
+      only include ASCII art. If the canonical format includes figures or 
+      artwork other than ASCII-art, then the plain-text output must include a 
+      pointer to the relevant figure in the HTML version of the RFC to allow 
+      readers to see the relevant artwork.</t>
+
+      <t>Authors who wish to include ASCII-art for the plain-text file and 
+      SVG art for the other outputs may do so, but they should be aware of the
+      potential for confusion to individuals reading the RFC with two unique
+      diagrams describing the same content.  If there is conflicting 
+      information between the publication formats, please review the XML and 
+      PDF files to resolve the conflict.</t>
+
+    </section>
+
+    <section title="General Page Format Layout">
+       <t>One plain-text output will be created during the publication
+       process with basic pagination that includes a form feed instruction 
+       every 58 lines at most, including blank lines.  Instructions or a 
+       script will be made available by and for the community to strip out 
+       pagination as per individual preference. </t>
+
+        <section title="Headers and Footers">
+          <t>The front matter on the front page (such as the RFC number 
+          and category), and the back matter on the last page (the author's 
+          full names and contact information) will continue with the 
+          structure described in <xref target="RFC5741">RFC 5741</xref>, 
+          "RFC Streams, Headers, and Boilerplates".  Running headers and 
+          footers will no longer be added.</t>
+        </section>
+
+        <section title="Table of Contents">
+          <t>In order to retain similar content wherever possible between
+          the various publication formats, the Table of Contents will list 
+          section and subsection numbers and titles, but will not include 
+          page numbers.</t>
+        </section>
+
+        <section title="Line Width">
+          <t>Each line must be limited to 72 characters followed by the
+          character sequence that denotes an end-of-line (EOL).  The EOL
+          sequence used by the RFC Editor will be the two-character sequence
+          CR LF (Carriage Return followed by Line Feed).  This
+          limit includes any left-side indentation.</t>
+
+          <t>Note that the EOL used by the RFC Editor may change with different
+          transports and as displayed in different display software.</t>
+        </section>
+
+        <section title="Line Spacing">
+          <t>Use single-spaced text within a paragraph, and one blank line
+           between paragraphs.</t>
+        </section>
+
+        <section title="Hyphenation">
+          <t>Hyphenated words (e.g., "Internet-Draft"), should not be split 
+          across successive lines. 
+          </t>
+        </section>
+    </section>
+
+    <section anchor="elements" title="Elements from the xml2rfc v3 vocabulary">
+        <t>The plain-text formatter uses the relevant tags from the xml2rfcv3 
+        source file to build a document conforming to the layout and structure 
+        described by the full RFC Style Guide (including the updates in the 
+        web portion of the Style Guide). <xref target="STYLEWEB"/>  
+        </t>
+    </section>
+
+
+    <section anchor="Acknowledgements" title="Acknowledgements">
+      <t>This draft owes a great deal of thanks to the efforts of the RFC 
+      Format Design Team: Nevil Brownlee, Tony Hansen, Joe Hildebrand, Paul 
+      Hoffman, Ted Lemon, Julian Reschke, Adam Roach, Alice Russo, Robert 
+      Sparks, and David Thaler.</t>
+    </section>
+
+    <section anchor="IANA" title="IANA Considerations">
+      <t>This memo includes no requests to IANA.</t>
+    </section>
+
+    <section anchor="Security" title="Security Considerations">
+      <t>The requirements of the plaintext format involve no significant security considerations. As part of the larger format project, however, unintended changes to the text as a result of the transformation from the base XML file could in turn corrupt a standard, practice or critical piece of information about a protocol.</t>
+    </section>
+
+  <section anchor="Changes" title="Change Log for the Draft">
+    <section anchor="changes13" title="draft-iab-rfc-plaintext-02 to -03">
+      <t>Figures and Artwork: clarified the state specifically around ASCII 
+         art</t>
+      <t>Elements from the xml2rfc v3: removed confusing sentence that called out particular elements for creation of front/back matter</t>
+    </section>
+    <section anchor="changes12" title="draft-iab-rfc-plantext-01 to -02">
+      <t>nits fixed</t>
+    </section>
+    <section anchor="changes11" title="draft-iab-rfc-plaintext-00 to -01">
+      <t>Introduction: removed sentence restricting this format to RFCs only; 
+         clarified that plaintext will be based on existing practice (except 
+         where otherwise called out)</t>
+      <t>Elements from the xml2rfc v3 vocabulary: clarified 
+         what xml2rfcv3 tags will render the front and back matter of a
+         document.</t>
+    </section>
+    <section anchor="changes10" title="draft-flanagan-plaintext-09 to draft-iab-rfc-plaintext-00">
+      <t>Figures and Artwork, Character Encoding: included additional detail
+      regarding how these items will be flagged within the XML.</t>
+    </section>
+    <section anchor="changes9" title="-08 to -09">
+      <t>Security Considerations: added text</t>
+    </section>
+    <section anchor="changes8" title="-07 to -08">
+      <t>Change log: forgot to update the change log for the -06 to -07 
+      changes.</t>
+    </section>
+    <section anchor="changes7" title="-06 to -07">
+      <t>Introduction: updated to state that this document does not require
+      backwards compatibility.</t>
+    </section>
+    <section anchor="changes6" title="-05 to -06">
+      <t>Abstract: Changed "cut over" to "transition"</t>
+      <t>Elements from xml2rfc v3: emphasized that doc structure is guided
+         by the RFC Style Guide</t>
+    </section>
+    <section anchor="changes5" title="-04 to -05">
+      <t>Abstract and Introduction: Revised for better readability; 
+      clarified the definition and implications of the term "plain-text"</t>
+      <t>General Page Format Layout: Added explicit EOL detail and added
+      some clarification regarding pagination</t>
+      <t>Elements from the xml2rfc v3 vocabulary: section added</t>
+    </section>
+    <section anchor="changes4" title="-03 to -04">
+      <t>Change Log for the Draft: forgot to complete the change log between the various revisions of the draft</t>
+    </section>
+    <section anchor="changes3" title="-02 to -03">
+      <t>Abstract: expanded</t>
+      <t>Introduction: adjusted language of assumptions</t>
+      <t>Figures and Artwork: adjusted to indicate where to go in case information for the images conflicts between different formats</t>
+      <t>General Page Layout: switched back to producing one basic paginated format, with an expectation of instructions and/or a script to create local, unpaginated copies for individual use.</t>
+    </section>
+    <section anchor="changes2" title="-01 to -02">
+      <t>Introduction: added pointer to original page layout information</t>
+      <t>Character encoding: clarified language around encoding and use of BOMs</t>
+      <t>General Page Format Layout: removed increased line width requirement; added sections on Line Width, Line Spacing, and Hyphenation (pulled from 2223-bis</t>
+     </section> 
+  </section>
+
+  </middle>
+
+  <!--  *****BACK MATTER ***** -->
+
+  <back>
+    <references title="Normative References">
+      &RFC3629;
+      &RFC5741;
+      &RFC6949;
+      &RFC7322;
+      &RFC7749;
+      &I-D.iab-rfc-nonascii;
+      &I-D.iab-xml2rfc;
+    </references>
+    <references title="Informative References">
+      <reference anchor="UNICODE-GLOSSARY"
+                 target="http://www.unicode.org/glossary/">
+        <front>
+          <title>Glossary of Unicode Terms</title>
+          <author>
+            <organization>The Unicode Consortium</organization>
+          </author>
+          <date year="2014" />
+        </front>
+      </reference>
+      <reference anchor="INS2AUTH"
+                 target="http://www.rfc-editor.org/rfc-editor/instructions2authors.txt">
+         <front>
+           <title>Instructions to Request for Comments (RFC) Authors</title>
+           <author>
+             <organization>RFC Editor</organization>
+           </author>
+           <date month="August" year="2004" />
+         </front>
+      </reference>
+      <reference anchor="STYLEWEB"
+                 target="http://www.rfc-editor.org/styleguide/part2/">
+         <front>
+           <title>Web Portion of the Style Guide</title>
+           <author>
+             <organization>RFC Editor</organization>
+           </author>
+           <date month="May" year="2015" />
+         </front>
+      </reference>
+      <reference anchor="XML-ANNOUNCE"
+       target="http://www.rfc-editor.org/pipermail/rfc-interest/2013-May/005584.html
+">
+        <front>
+          <title>Subject: Direction of the RFC Format Development effort</title>
+          <author initials="H." surname="Flanagan">
+             <organization></organization>
+          </author>
+          <date year="2013" month="May" day="2" />
+        </front>
+      </reference>
+      <reference anchor="WIDOWS"
+             target="http://en.wikipedia.org/wiki/Widows_and_orphans">
+         <front>
+          <title>Widows and orphans</title>
+          <author>
+            <organization>Wikipedia</organization>
+          </author>
+          <date month='October' year='2014' />
+         </front>
+      </reference>
+    </references>
+
+  </back>
+</rfc>
+
